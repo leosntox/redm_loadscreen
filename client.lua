@@ -1,10 +1,9 @@
 local loadscreenClosed = false
 
 CreateThread(function()
-    -- Silencia a música do jogo durante a loadscreen
     SetAudioFlag("DisableFlightMusic", true)
 
-    -- Garante que a logo do jogo comece escondida
+    -- começa sempre escondida
     SendNUIMessage({
         action = "hideLogo"
     })
@@ -17,15 +16,25 @@ RegisterNetEvent("redm_loadscreen:close", function()
 
     loadscreenClosed = true
 
-    -- Fecha a tela de carregamento
     ShutdownLoadingScreen()
     ShutdownLoadingScreenNui()
 
-    -- Restaura o áudio do jogo
     SetAudioFlag("DisableFlightMusic", false)
 
-    -- Exibe a logo durante o jogo
+    -- continua escondida durante seleção/criação
+    SendNUIMessage({
+        action = "hideLogo"
+    })
+end)
+
+RegisterNetEvent("redm_loadscreen:showLogo", function()
     SendNUIMessage({
         action = "showLogo"
+    })
+end)
+
+RegisterNetEvent("redm_loadscreen:hideLogo", function()
+    SendNUIMessage({
+        action = "hideLogo"
     })
 end)
