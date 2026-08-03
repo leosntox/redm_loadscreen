@@ -38,3 +38,10 @@ RegisterNetEvent("redm_loadscreen:hideLogo", function()
         action = "hideLogo"
     })
 end)
+
+-- Integração automática com VORP
+AddEventHandler("vorp_core:Client:OnPlayerSpawned", function()
+    SendNUIMessage({
+        action = "showLogo"
+    })
+end)
