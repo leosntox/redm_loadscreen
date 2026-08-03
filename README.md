@@ -40,19 +40,25 @@ Para garantir o funcionamento correto da loadscreen, utilize os seguintes padrõ
 
 ## Instalação
 1. Coloque a pasta `redm_loadscreen` dentro da pasta `resources`.
-2. Adicione ao seu `server.cfg`  ensure redm_loadscreen
-3. Adicione sua `logo.png` dentro da pasta `html`.
-4. Adicione seu `intro.mp4` dentro da pasta `html`.
+2. Adicione ao seu `server.cfg`:
 
-### Importante
-O **RedM Loadscreen** utiliza fechamento manual para permitir que a tela de carregamento permaneça ativa até que o servidor esteja pronto para exibir o jogador.
-Para fechar a loadscreen, utilize o evento:
+ensure redm_loadscreen (abaixo de ensure vorp_core)
 
-```lua
+3. Substitua a imagem `logo.png` da pasta `html` pela logo do seu servidor.
+4. Substitua o vídeo `intro.mp4` da pasta `html` pelo vídeo de sua preferência.
+5. Para utilizar este recurso corretamente com a **VORP**, é necessário desativar a loading screen padrão.
+No arquivo `config.lua` do `vorp_core`, altere:
+
+UseInnitialLoadingScreen = false
+Loadinscreen = false
+
+6. O **RedM Loadscreen** utiliza fechamento manual para permitir que a tela de carregamento permaneça ativa até que o servidor esteja pronto para exibir o jogador.
+Adicione o evento abaixo ao final da função `OpenMenuSelect()`, localizada no arquivo `client.lua` do recurso `vorp_character`, antes do `end` que encerra a função:
+
 TriggerEvent("redm_loadscreen:close")
-```
+
 Esse evento deve ser chamado dentro da `function OpenMenuSelect()` ao final dela antes do `end` que finaliza a função
-localizado no client.lua do vorp_character
+localizado no `client.lua` do `vorp_character`
 
 ## Compatibilidade
 - ✅ VORP
