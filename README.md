@@ -1,5 +1,5 @@
 # RedM Loadscreen
-**RedM Loadscreen** é um recurso de tela de carregamento desenvolvido para servidores RedM, com integração preferencial para VORP.
+**RedM Loadscreen** é um recurso de tela de carregamento desenvolvido para servidores RedM, atualmente com integração para VORP.
 
 ## Versão 1.1
 O objetivo é oferecer uma tela de carregamento e uma logo (watermark) simples, leves e fáceis de personalizar, permitindo que cada servidor adapte o recurso à sua própria identidade visual.
