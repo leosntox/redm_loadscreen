@@ -1,4 +1,4 @@
-# RedM Loadscreen v2.0
+# RedM Loadscreen v2.0.0
 **RedM Loadscreen** é uma loadscreen moderna e personalizável para servidores **RedM**, com suporte a vídeos, imagens, música e integração automática com **VORP**.
 Além da tela de carregamento, o recurso também exibe uma **logo (watermark)** durante o jogo, permitindo manter a identidade visual do servidor desde o carregamento até o gameplay.
 
