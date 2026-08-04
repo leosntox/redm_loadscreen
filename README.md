@@ -1,70 +1,101 @@
-# RedM Loadscreen
-**RedM Loadscreen** é um recurso de tela de carregamento desenvolvido para servidores RedM, atualmente com integração para VORP.
+# RedM Loadscreen v2.0
+**RedM Loadscreen** é uma loadscreen moderna e personalizável para servidores **RedM**, com suporte a vídeos, imagens, música e integração automática com **VORP**.
+Além da tela de carregamento, o recurso também exibe uma **logo (watermark)** durante o jogo, permitindo manter a identidade visual do servidor desde o carregamento até o gameplay.
 
-## Versão 1.1
-O objetivo é oferecer uma tela de carregamento e uma logo (watermark) simples, leves e fáceis de personalizar, permitindo que cada servidor adapte o recurso à sua própria identidade visual.
+# Recursos
+- Reprodução de vídeos.
+- Reprodução de imagens.
+- Playlist de vídeos e imagens.
+- Ordem sequencial ou aleatória.
+- Repetição automática da playlist.
+- Música opcional durante a loadscreen.
+- Silenciar ou reativar o áudio pelo teclado.
+- Fade entre imagens configurável.
+- Logo (watermark) durante o jogo.
+- Exibição automática da logo após o spawn.
+- Integração com seleção e criação de personagem da VORP.
+- Configuração centralizada através do `config.js`.
 
-## Recursos atuais
-Além da tela de carregamento, este recurso também é responsável pela **logo (watermark) exibida durante o jogo**, permitindo que o servidor mantenha sua identidade visual desde o carregamento até a experiência em gameplay.
+# Instalação
+1. Coloque a pasta `redm_loadscreen` dentro da pasta `resources` do servidor.
 
-- Tela de carregamento personalizada.
-- Suporte a vídeo de abertura.
-- Fechamento manual da loadscreen.
-- Logo (watermark) exibida durante o jogo.
-- Exibição automática da logo após o spawn (VORP).
-- Compatível com RedM.
-- Código simples e de fácil personalização.
+2. Adicione `ensure redm_loadscreen` no `server.cfg` 
+> Adicione o recurso depois do `vorp_core` e antes do `vorp_character`
 
-## Planejamento
-Este projeto continuará recebendo atualizações. Algumas funcionalidades planejadas para versões futuras incluem:
+3. Desabilitar a loadscreen padrão da VORP
+Abra o arquivo `vorp_core/config.lua`
+Localize 
+> UseInnitialLoadingScreen = true    (deixe como false)
+> Loadinscreen = true    (deixe como false)
 
-- Sequência de imagens e vídeos (Slideshow).
-- Reprodução de trilha sonora personalizada.
-- Opções interativas na tela de carregamento.
-- Configurações para posicionamento e personalização da logo.
-- Outras funcionalidades conforme o desenvolvimento do projeto.
+4. Configurar o fechamento na seleção de personagem
+Abra o arquivo `vorp_character/client/client.lua`
+Localize a função
+> function OpenMenuSelect()
+No final dessa função, depois do fechamento de `MenuData.Open(...)` e antes do `end` que encerra `OpenMenuSelect()`, adicione:
+> TriggerEvent("redm_loadscreen:close")
+O final da função deverá ficar semelhante a:
+```lua
+    end)
 
-## Recomendações
-Para garantir o funcionamento correto da loadscreen, utilize os seguintes padrões:
+    TriggerEvent("redm_loadscreen:close")
+end
+```
+Esse evento encerra a loadscreen quando o menu de seleção de personagens estiver pronto para ser exibido.
+> A criação do primeiro personagem é identificada automaticamente pelo evento `vorpcharacter:startCharacterCreator`, já integrado ao `client.lua` do **RedM Loadscreen**.
 
-### Logo
+5. Adicionar os arquivos de mídia
+Todos os arquivos de mídia devem ser colocados na pasta `redm_loadscreen/html/media/`
+Você pode adicionar quantos vídeos e imagens desejar, desde que os nomes também sejam informados no `config.js`.
+
+6. Configurar a loadscreen
+Abra o arquivo `redm_loadscreen/html/config.js`
+Nesse arquivo você poderá escolher:
+- Modo de vídeo ou imagem.
+- Arquivos utilizados na playlist.
+- Ordem sequencial ou aleatória.
+- Repetição da playlist.
+- Tempo de exibição das imagens.
+- Transição entre imagens.
+- Música opcional.
+- Tecla para silenciar o áudio.
+- Exibição da dica de áudio.
+Os nomes configurados devem corresponder exatamente aos arquivos existentes em `html/media`.
+
+7. Reiniciar e testar
+Depois de finalizar as alterações:
+Reinicie o servidor.
+Feche completamente o RedM.
+Entre novamente no servidor.
+Teste a seleção de personagem.
+Teste a criação do primeiro personagem.
+Confirme se a logo aparece após o spawn.
+
+# Recomendações
+## Logo
 - Formato: **PNG**
 - Fundo: **Transparente**
 - Resolução recomendada: **512 × 512 px**
 
-### Vídeo
+## Vídeos
 - Formato: **MP4**
 - Codec recomendado: **H.264 (AVC)**
-- Resolução recomendada: **1920 × 1080 (1080p)**
+- Resolução recomendada: **1920 × 1080**
 - Tamanho recomendado: **até 30 MB**
 
-## Instalação
-1. Coloque a pasta `redm_loadscreen` dentro da pasta `resources`.
-2. Adicione ao seu `server.cfg`:
+## Imagens
+- Formato: **PNG**
+- Resolução recomendada: **1920 × 1080**
 
-ensure redm_loadscreen (abaixo de ensure vorp_core)
+## Música
+- Formato: **MP3**
 
-3. Substitua a imagem `logo.png` da pasta `html` pela logo do seu servidor.
-4. Substitua o vídeo `intro.mp4` da pasta `html` pelo vídeo de sua preferência.
-5. Para utilizar este recurso corretamente com a **VORP**, é necessário desativar a loading screen padrão.
-No arquivo `config.lua` do `vorp_core`, altere:
-
-UseInnitialLoadingScreen = false
-Loadinscreen = false
-
-6. O **RedM Loadscreen** utiliza fechamento manual para permitir que a tela de carregamento permaneça ativa até que o servidor esteja pronto para exibir o jogador.
-Adicione o evento abaixo ao final da função `OpenMenuSelect()`, localizada no arquivo `client.lua` do recurso `vorp_character`, antes do `end` que encerra a função:
-
-TriggerEvent("redm_loadscreen:close")
-
-Esse evento deve ser chamado dentro da `function OpenMenuSelect()` ao final dela antes do `end` que finaliza a função
-localizado no `client.lua` do `vorp_character`
-
-## Compatibilidade
+# Compatibilidade
+- ✅ RedM
 - ✅ VORP
-- ⚠️ Outros frameworks: requer integração manual.
+- ⚠️ Outros frameworks requerem integração manual.
 
-
-## Créditos
+# Créditos
 Desenvolvido por **leosntox**
+Créditos VORP por disponibilizar o vorp_character e vorp_core utilizados e o @outsider.
 Discord: **leosntox**
