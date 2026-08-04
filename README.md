@@ -32,17 +32,9 @@ Localize
 Abra o arquivo `vorp_character/client/client.lua`
 Localize a função
 > function OpenMenuSelect()
-No final dessa função, depois do fechamento de `MenuData.Open(...)` e antes do `end` que encerra `OpenMenuSelect()`, adicione:
-> TriggerEvent("redm_loadscreen:close")
-O final da função deverá ficar semelhante a:
-```lua
-    end)
-
-    TriggerEvent("redm_loadscreen:close")
-end
-```
-Esse evento encerra a loadscreen quando o menu de seleção de personagens estiver pronto para ser exibido.
-> A criação do primeiro personagem é identificada automaticamente pelo evento `vorpcharacter:startCharacterCreator`, já integrado ao `client.lua` do **RedM Loadscreen**.
+No final dessa função, e antes do `end` que encerra `OpenMenuSelect()`, adicione:
+> TriggerEvent("redm_loadscreen:close") - Esse evento encerra a loadscreen quando o menu de seleção de personagens estiver pronto para ser exibido.
+A criação do primeiro personagem é identificada automaticamente pelo evento `vorpcharacter:startCharacterCreator`, já integrado ao `client.lua` do **RedM Loadscreen**.
 
 5. Adicionar os arquivos de mídia
 Todos os arquivos de mídia devem ser colocados na pasta `redm_loadscreen/html/media/`
@@ -96,6 +88,5 @@ Confirme se a logo aparece após o spawn.
 - ⚠️ Outros frameworks requerem integração manual.
 
 # Créditos
-Desenvolvido por **leosntox**
-Créditos VORP por disponibilizar o vorp_character e vorp_core utilizados e o @outsider.
-Discord: **leosntox**
+> Discord: leosntox
+> Créditos VORP por disponibilizar o vorp_character e vorp_core utilizados e o @outsider.
