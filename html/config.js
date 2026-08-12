@@ -5,9 +5,7 @@ const LoadscreenConfig = {
 
     // VÍDEOS - Arquivos reproduzidos quando o modo selecionado for "video".
     videos: [
-        "intro1.mp4",
-        "intro2.mp4",
-        "intro3.mp4"
+        "intro.mp4"
     ],
 
     // IMAGENS - Arquivos exibidos quando o modo selecionado for "image".
