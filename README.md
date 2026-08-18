@@ -1,4 +1,4 @@
-# RedM Loadscreen v2.5.0
+# RedM Loadscreen v2.5.1
 
 **RedM Loadscreen** é uma loadscreen moderna e personalizável para servidores **RedM**, com suporte a vídeos, imagens, música e integração com a criação de personagens e o spawn da **VORP**.
 
