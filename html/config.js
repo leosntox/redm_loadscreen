@@ -8,6 +8,9 @@ const LoadscreenConfig = {
         "intro.mp4"
     ],
 
+    videoTransition: true,            // Ativa a transição entre vídeos.
+    videoTransitionDuration: 800,     // Tempo da transição (ms).
+
     // IMAGENS - Arquivos exibidos quando o modo selecionado for "image".
     images: [
         "img1.png",
@@ -27,11 +30,18 @@ const LoadscreenConfig = {
     useMusic: false,                   // Ativa ou desativa a música.
     music: "musica.mp3",
 
-   // CONTROLE DE ÁUDIO - Permite silenciar ou reativar o áudio pelo teclado.
+    // CONTROLE DE ÁUDIO - Permite silenciar ou reativar o áudio pelo teclado.
     allowMute: true,
     muteKey: "Space",
 
     // DICA DE ÁUDIO - Exibe uma mensagem informando como silenciar ou reativar o áudio.
     showMuteHint: true,
-    muteHintPosition: "bottom-right" // "bottom-left", "bottom-right", "top-left" ou "top-right"
+    muteHintPosition: "bottom-right", // "bottom-left", "bottom-right", "top-left" ou "top-right"
+
+    // REDES SOCIAIS - Preencha os links para ativar os botões da loadscreen.
+    socialLinks: {
+        discord: "https://discord.gg/vorp-core",
+        tiktok: "https://www.tiktok.com/@leosntox",
+        instagram: "https://www.instagram.com/leosntox/"
+    }
 };

@@ -1,92 +1,162 @@
-# RedM Loadscreen v2.0.0
-**RedM Loadscreen** é uma loadscreen moderna e personalizável para servidores **RedM**, com suporte a vídeos, imagens, música e integração automática com **VORP**.
-Além da tela de carregamento, o recurso também exibe uma **logo (watermark)** durante o jogo, permitindo manter a identidade visual do servidor desde o carregamento até o gameplay.
+# RedM Loadscreen v2.5.0
 
-# Recursos
-- Reprodução de vídeos.
-- Reprodução de imagens.
-- Playlist de vídeos e imagens.
-- Ordem sequencial ou aleatória.
+**RedM Loadscreen** é uma loadscreen moderna e personalizável para servidores **RedM**, com suporte a vídeos, imagens, música e integração com a criação de personagens e o spawn da **VORP**.
+
+Além da tela de carregamento, o recurso também exibe uma **logo (watermark)** durante o jogo, mantendo a identidade visual do servidor desde o carregamento até o gameplay.
+
+## Recursos
+
+- Reprodução de vídeos e imagens.
+- Playlist com ordem sequencial ou aleatória.
 - Repetição automática da playlist.
+- Transições configuráveis entre vídeos e imagens.
 - Música opcional durante a loadscreen.
-- Silenciar ou reativar o áudio pelo teclado.
-- Fade entre imagens configurável.
-- Logo (watermark) durante o jogo.
-- Exibição automática da logo após o spawn.
-- Integração com seleção e criação de personagem da VORP.
-- Configuração centralizada através do `config.js`.
+- Controle de áudio pelo teclado.
+- Bloqueio temporário do áudio ambiente do mundo durante o carregamento.
+- Atalhos configuráveis para Discord, TikTok e Instagram.
+- Recuperação automática quando uma mídia da playlist falha.
+- Logo durante o jogo com exibição suave após o spawn.
+- Integração com criação de personagem e spawn da VORP.
+- Configuração centralizada no `config.js`.
 
-# Instalação
-1. Coloque a pasta `redm_loadscreen` dentro da pasta `resources` do servidor.
+## Instalação
 
-2. Adicione `ensure redm_loadscreen` no `server.cfg` 
-> Adicione o recurso depois do `vorp_core` e antes do `vorp_character`
+### 1. Instalar o recurso
 
-3. Desabilitar a loadscreen padrão da VORP
-Abra o arquivo `vorp_core/config.lua`
-Localize 
-> UseInnitialLoadingScreen = true    (deixe como false)
-> Loadinscreen = true    (deixe como false)
+Coloque a pasta `redm_loadscreen` dentro da pasta `resources` do servidor.
 
-4. Configurar o fechamento na seleção de personagem
-Abra o arquivo `vorp_character/client/client.lua`
-Localize a função
-> function OpenMenuSelect()
-No final dessa função, e antes do `end` que encerra `OpenMenuSelect()`, adicione:
-> TriggerEvent("redm_loadscreen:close") - Esse evento encerra a loadscreen quando o menu de seleção de personagens estiver pronto para ser exibido.
-A criação do primeiro personagem é identificada automaticamente pelo evento `vorpcharacter:startCharacterCreator`, já integrado ao `client.lua` do **RedM Loadscreen**.
+Adicione ao `server.cfg`:
 
-5. Adicionar os arquivos de mídia
-Todos os arquivos de mídia devem ser colocados na pasta `redm_loadscreen/html/media/`
-Você pode adicionar quantos vídeos e imagens desejar, desde que os nomes também sejam informados no `config.js`.
+```cfg
+ensure redm_loadscreen
+```
 
-6. Configurar a loadscreen
-Abra o arquivo `redm_loadscreen/html/config.js`
-Nesse arquivo você poderá escolher:
+Adicione o recurso depois do `vorp_core` e antes do `vorp_character`.
+
+### 2. Desabilitar a loadscreen padrão da VORP
+
+Abra `vorp_core/config.lua` e deixe estas opções como `false`:
+
+```lua
+UseInnitialLoadingScreen = false
+Loadinscreen = false
+```
+
+### 3. Configurar o fechamento na seleção de personagens
+
+Abra `vorp_character/client/client.lua` e localize:
+
+```lua
+function OpenMenuSelect()
+```
+
+No final dessa função, antes do `end` que encerra `OpenMenuSelect()`, adicione:
+
+```lua
+TriggerEvent("redm_loadscreen:close")
+```
+
+Esse evento encerra a loadscreen quando o menu de seleção de personagens está pronto para ser exibido.
+
+A criação do primeiro personagem é identificada pelo evento `vorpcharacter:startCharacterCreator`, já integrado ao `client.lua` deste recurso.
+
+### 4. Adicionar as mídias
+
+Coloque todos os arquivos na pasta:
+
+```text
+redm_loadscreen/html/media/
+```
+
+É possível adicionar quantos vídeos e imagens desejar, desde que os nomes também sejam informados no `config.js`.
+
+### 5. Configurar a loadscreen
+
+Abra `redm_loadscreen/html/config.js`. Nesse arquivo você pode configurar:
+
 - Modo de vídeo ou imagem.
 - Arquivos utilizados na playlist.
 - Ordem sequencial ou aleatória.
 - Repetição da playlist.
-- Tempo de exibição das imagens.
-- Transição entre imagens.
+- Duração e transição das imagens.
+- Transição entre vídeos.
 - Música opcional.
-- Tecla para silenciar o áudio.
-- Exibição da dica de áudio.
+- Tecla de controle do áudio.
+- Exibição e posição da dica de áudio.
+- Links das redes sociais.
+
 Os nomes configurados devem corresponder exatamente aos arquivos existentes em `html/media`.
 
-7. Reiniciar e testar
+### 6. Reiniciar e testar
+
 Depois de finalizar as alterações:
-Reinicie o servidor.
-Feche completamente o RedM.
-Entre novamente no servidor.
-Teste a seleção de personagem.
-Teste a criação do primeiro personagem.
-Confirme se a logo aparece após o spawn.
 
-# Recomendações
-## Logo
-- Formato: **PNG**
-- Fundo: **Transparente**
-- Resolução recomendada: **512 × 512 px**
+1. Reinicie o servidor.
+2. Feche completamente o RedM.
+3. Entre novamente no servidor.
+4. Teste a seleção de personagens.
+5. Teste a criação do primeiro personagem.
+6. Confirme se a logo aparece após o spawn.
 
-## Vídeos
-- Formato: **MP4**
-- Codec recomendado: **H.264 (AVC)**
-- Resolução recomendada: **1920 × 1080**
-- Tamanho recomendado: **até 30 MB**
+## Configuração de áudio
 
-## Imagens
-- Formato: **PNG**
-- Resolução recomendada: **1920 × 1080**
+O vídeo pode possuir áudio próprio. A opção abaixo controla apenas a música adicional:
 
-## Música
-- Formato: **MP3**
+```javascript
+useMusic: false
+```
 
-# Compatibilidade
+Se `useMusic` estiver como `true` e o vídeo também possuir áudio, os dois serão reproduzidos simultaneamente. A tecla configurada em `muteKey` silencia ou reativa tanto o vídeo quanto a música.
+
+A dica de áudio é exibida somente quando o controle de áudio está habilitado e existe uma fonte de áudio potencialmente ativa.
+
+O áudio ambiente do mundo do jogo é bloqueado enquanto a loadscreen permanece aberta. Ao fechar a loadscreen, o recurso restaura somente a cena de áudio que ele próprio iniciou. O mesmo procedimento de segurança é executado se o recurso for interrompido.
+
+## Links sociais
+
+Os quatro atalhos são configurados em `html/config.js`:
+
+```javascript
+socialLinks: {
+    discord: "https://discord.gg/vorp-core",
+    tiktok: "https://www.tiktok.com/@leosntox",
+    instagram: "https://www.instagram.com/leosntox/"
+}
+```
+
+Enquanto um campo estiver vazio, o ícone permanece visível, mas desativado. Para ativá-lo, informe o endereço completo começando com `https://`.
+
+## Recomendações
+
+### Logo
+
+- Formato: **PNG**.
+- Fundo: **transparente**.
+- Resolução recomendada: **512 × 512 px**.
+
+### Vídeos
+
+- Formato: **MP4**.
+- Codec recomendado: **H.264 (AVC)**.
+- Resolução recomendada: **1920 × 1080**.
+- Tamanho recomendado: **até 30 MB**.
+
+### Imagens
+
+- Formato: **PNG**.
+- Resolução recomendada: **1920 × 1080**.
+
+### Música
+
+- Formato: **MP3**.
+
+## Compatibilidade
+
 - ✅ RedM
 - ✅ VORP
 - ⚠️ Outros frameworks requerem integração manual.
 
-# Créditos
-> Discord: leosntox
-> Créditos VORP por disponibilizar o vorp_character e vorp_core utilizados e o @outsider.
+## Créditos
+
+- Discord: `leosntox`.
+- Créditos à VORP por disponibilizar o `vorp_character` e o `vorp_core` utilizados na integração, e ao `@outsider`.

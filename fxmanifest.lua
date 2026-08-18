@@ -3,11 +3,12 @@ rdr3_warning 'I acknowledge that this is a prerelease build of RedM, and I am aw
 game 'rdr3'
 author 'leosntox'
 description 'Loadscreen personalizável com vídeos, imagens, música e integração VORP.'
-version '2.0'
+version '2.5.0'
 
 -- LOADSCREEN - Define a página utilizada durante o carregamento.
 loadscreen 'html/index.html'
 loadscreen_manual_shutdown 'yes'
+loadscreen_cursor 'yes'
 
 -- HUD - Define a página utilizada para exibir a logo durante o jogo.
 ui_page 'html/hud.html'

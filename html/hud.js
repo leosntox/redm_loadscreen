@@ -5,11 +5,11 @@ window.addEventListener("message", (event) => {
 
     switch (data.action) {
         case "showLogo":
-            serverLogo.style.display = "block";
+            serverLogo.classList.add("visible");
             break;
 
         case "hideLogo":
-            serverLogo.style.display = "none";
+            serverLogo.classList.remove("visible");
             break;
     }
 });

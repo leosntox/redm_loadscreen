@@ -9,7 +9,7 @@ body {
 }
 
 #serverLogo {
-    display: none;
+    visibility: hidden;
     position: fixed;
     top: 2vh;
     left: 50%;
@@ -18,7 +18,13 @@ body {
     width: 140px;
     height: auto;
 
-    opacity: 1;
+    opacity: 0;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
     pointer-events: none;
     user-select: none;
+}
+
+#serverLogo.visible {
+    visibility: visible;
+    opacity: 1;
 }
