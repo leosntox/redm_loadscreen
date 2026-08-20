@@ -19,7 +19,7 @@ body {
     height: auto;
 
     opacity: 0;
-    transition: opacity 0.5s ease, visibility 0.5s ease;
+    transition: opacity 0.2s ease, visibility 0s linear 0.2s;
     pointer-events: none;
     user-select: none;
 }
@@ -27,4 +27,5 @@ body {
 #serverLogo.visible {
     visibility: visible;
     opacity: 1;
+    transition: opacity 0.5s ease, visibility 0s linear 0s;
 }

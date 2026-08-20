@@ -2,6 +2,34 @@ local loadscreenClosed = false
 local gameWorldAudioMuted = false
 local audioSceneStartedByResource = false
 local muteAudioScene = "CHARACTER_CHANGE_IN_SKY_SCENE"
+local logoRequested = false
+local logoVisible = false
+local openWheelControl = 0xAC4BD4F1
+
+-- LOGO DA HUD - Envia a alteração somente quando o estado visual realmente muda.
+local function setLogoVisible(visible)
+    if logoVisible == visible then
+        return
+    end
+
+    logoVisible = visible
+    SendNUIMessage({
+        action = visible and "showLogo" or "hideLogo"
+    })
+end
+
+-- LOGO DA HUD - Detecta telas que devem ficar livres da marca do servidor.
+local function isInterfaceOpen()
+    local wheelOpen = IsControlPressed(0, openWheelControl)
+        or IsDisabledControlPressed(0, openWheelControl)
+
+    return wheelOpen or IsPauseMenuActive() or IsNuiFocused()
+end
+
+-- LOGO DA HUD - Respeita o pedido de exibição sem sobrepor menus.
+local function updateLogoVisibility()
+    setLogoVisible(logoRequested and not isInterfaceOpen())
+end
 
 -- ÁUDIO DO MUNDO - Liga ou desliga o bloqueio temporário durante a loadscreen.
 local function setGameWorldAudioMuted(muted)
@@ -31,17 +59,15 @@ local function closeLoadscreen()
     setGameWorldAudioMuted(false)
     ShutdownLoadingScreen()
     ShutdownLoadingScreenNui()
-    SendNUIMessage({
-        action = "hideLogo"
-    })
+    logoRequested = false
+    updateLogoVisibility()
 end
 
 -- INICIALIZAÇÃO - Bloqueia o áudio do mundo e inicia com a logo escondida.
 CreateThread(function()
     setGameWorldAudioMuted(true)
-    SendNUIMessage({
-        action = "hideLogo"
-    })
+    logoRequested = false
+    updateLogoVisibility()
 
     -- Mantém o bloqueio durante transições nas quais o RedM reinicia as cenas de áudio.
     while gameWorldAudioMuted do
@@ -65,23 +91,28 @@ end)
 
 -- CONTROLE DA LOGO - Exibe a logo durante o jogo.
 RegisterNetEvent("redm_loadscreen:showLogo", function()
-    SendNUIMessage({
-        action = "showLogo"
-    })
+    logoRequested = true
+    updateLogoVisibility()
 end)
 
 -- CONTROLE DA LOGO - Oculta a logo durante o jogo.
 RegisterNetEvent("redm_loadscreen:hideLogo", function()
-    SendNUIMessage({
-        action = "hideLogo"
-    })
+    logoRequested = false
+    updateLogoVisibility()
 end)
 
 -- INTEGRAÇÃO COM VORP - Exibe automaticamente a logo após o spawn.
 AddEventHandler("vorp_core:Client:OnPlayerSpawned", function()
-    SendNUIMessage({
-        action = "showLogo"
-    })
+    logoRequested = true
+    updateLogoVisibility()
+end)
+
+-- LOGO DA HUD - Oculta em interfaces e restaura ao voltar para o personagem.
+CreateThread(function()
+    while true do
+        Wait(50)
+        updateLogoVisibility()
+    end
 end)
 
 -- SEGURANÇA - Restaura o áudio nativo caso o recurso seja interrompido.

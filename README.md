@@ -1,4 +1,4 @@
-# RedM Loadscreen v2.5.1
+# RedM Loadscreen v2.5.2
 
 **RedM Loadscreen** é uma loadscreen moderna e personalizável para servidores **RedM**, com suporte a vídeos, imagens, música e integração com a criação de personagens e o spawn da **VORP**.
 
@@ -15,7 +15,7 @@ Além da tela de carregamento, o recurso também exibe uma **logo (watermark)** 
 - Bloqueio temporário do áudio ambiente do mundo durante o carregamento.
 - Atalhos configuráveis para Discord, TikTok e Instagram.
 - Recuperação automática quando uma mídia da playlist falha.
-- Logo durante o jogo com exibição suave após o spawn.
+- Logo durante o jogo com exibição suave após o spawn e ocultação automática em menus.
 - Integração com criação de personagem e spawn da VORP.
 - Configuração centralizada no `config.js`.
 
